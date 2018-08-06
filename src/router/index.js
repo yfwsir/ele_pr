@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home.vue'
-import Discover from '@/components/Discover.vue'
-import Order from '@/components/Order.vue'
-import Mine from '@/components/Mine.vue'
+import Home from '@/pages/Home.vue'
+import Discover from '@/pages/Discover.vue'
+import Order from '@/pages/Order.vue'
+import Mine from '@/pages/Mine.vue'
 
 Vue.use(Router)
 
