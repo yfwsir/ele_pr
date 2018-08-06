@@ -6,6 +6,10 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+// 引入过滤器，插件的形式
+import formateImg from './filter'
+Vue.use(formateImg);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

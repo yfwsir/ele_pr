@@ -1,17 +1,30 @@
 <template>
-    <div id="homeRestaurant">
-        <div v-for="(item,index) in restaurantData" :key="index" class="homeRestaurant">
+    <div id="homeRestaurants">
+        <div v-for="(item,index) in restaurantData" :key="index+'r'" class="homeRestaurant">
             <div class="homeRestaurant_img">
-                <img :src="'http://fuss10.elemecdn.com/'+item.restaurant.image_path + '.jpeg'">
+                <img :src="item.restaurant.image_path | formateImg">
             </div>
             <div class="homeRestaurant_detail">
-                <p>{{item.restaurant.name}}</p>
+                <span class="protect" v-if="item.restaurant.supports"
+                         v-for="(icon,index) in item.restaurant.supports" :key="index + '11'">
+                    {{icon.icon_name}}
+                </span>
+                <span class="protect" v-if="item.restaurant.recommend.is_ad">
+                    {{item.restaurant.recommend.reason}}
+                </span>
+                <p>
+                    <!-- <span v-if="item.restaurant.recommend."> -->
+                    <!-- {{item.restaurant.recommend.reason}} -->
+                <!-- </span> -->
+                    {{item.restaurant.name}}
+                </p>
+                <span class="fengniao" v-if="item.restaurant.delivery_mode">{{item.restaurant.delivery_mode.text}}</span>
                 <p>
                     <span>{{item.restaurant.rating}}</span> 
                     <span>月售{{item.restaurant.recent_order_num}}份</span>
                 </p>
                 <p>
-                    <span>￥20起送</span> |
+                    <span>￥{{item.restaurant.float_minimum_order_amount}}起送</span> |
                     <span>{{item.restaurant.piecewise_agent_fee.tips}}</span>
                 </p>
                 <p>
@@ -19,12 +32,10 @@
                         {{item.text}}
                     </span>
                 </p>
-                <p>
-                    <span class="p5_span1">{{item.restaurant.activities[0].tips}}</span>
-                    <span>{{item.restaurant.activities.length}}个活动</span>
-                </p>
-                <p>
-                   <!-- <span>{{item.restaurant.activities[1].tips}}</span> -->
+                 <span class="activities_length" @click="showActive(index)">{{item.restaurant.activities.length}}个活动</span>
+                <p v-for="(item,index) in item.restaurant.activities" :key="index+'k'" v-if="index<2 || isShow==1">
+                    <span>{{item.icon_name}}</span>
+                    <span>{{item.tips}}</span>
                 </p>
             </div>
         </div>
@@ -36,7 +47,13 @@ import {restaurantData} from '../../services/homeService'
 export default {
     data () {
         return {
-            restaurantData:[]    
+            restaurantData:[],
+            isShow:0    
+        }
+    },
+    methods:{
+        showActive(){
+            this.isShow = !this.isShow ;
         }
     },
     mounted(){
@@ -48,13 +65,14 @@ export default {
 </script>
 
 <style scoped>
-#homeRestaurant{
+#homeRestaurants{
+    box-sizing: border-box;
     padding: 0 15px 50px;
     font-size: 12px;
     color: #333;
 }
 .homeRestaurant{
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     padding: 10px 0;
 }
@@ -85,16 +103,26 @@ export default {
 }
 .homeRestaurant_detail p:nth-of-type(5) .p5_span1{
     display: inline-block;
-    width: 180px;
+    width: 160px;
 }
-/* .homeRestaurant_detail p:nth-of-type(6){
+.homeRestaurant_detail p:nth-of-type(6){
     display: inline-block;
-    width: 180px;
+    width: 160px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-} */
+}
 .homeRestaurant_detail p{
     margin-bottom: 7px;
+}
+.activities_length,.fengniao,.protect{
+    float: right;
+}
+.fengniao{
+    background: #0af;
+    color: #fff;
+}
+.protect{
+    margin-left: 5px;
 }
 </style>
