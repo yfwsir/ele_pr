@@ -18,3 +18,38 @@ export function restaurantData(){
         })
     })
 }
+
+// 请求搜索页面热点搜索的数据
+export function hotSearchData(){
+    return new Promise(resolve=>{
+        axios.get('/restapi/shopping/v3/hot_search_words?latitude=18.25248&longitude=109.512093'
+        )
+        .then(res=>{
+            // console.log(res.data)
+            resolve(res.data)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    })
+}
+
+
+// 搜索关键字匹配的详情页数据
+export function footDetailData(keyword){
+    return new Promise(resolve=>{
+        axios.get('/restapi/shopping/v2/restaurants/search?offset=0&limit=15&keyword='+keyword+'&latitude=18.25248&longitude=109.512093&search_item_type=3&is_rewrite=1&extras[]=activities&extras[]=coupon&terminal=h5'
+        )
+        .then(res=>{
+            // console.log(res.data.inside[0].restaurant_with_foods)
+            res.data.inside[0].restaurant_with_foods.map(item=>{
+                item.restaurant.isShow = false
+                item.isMore = false
+            })
+            resolve(res.data.inside[0].restaurant_with_foods)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    })
+}
