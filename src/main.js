@@ -10,6 +10,11 @@ Vue.config.productionTip = false
 import formateImg from './filter'
 Vue.use(formateImg);
 
+//引入滚动容器视图
+import Page from './components/common/Page.vue'
+  // 全局组件名称，哪个组件
+Vue.component('page',Page)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,6 +1,6 @@
 <template>
     <div id="homeRestaurants">
-        <div v-for="(item,index) in restaurantData" :key="index+'r'" class="homeRestaurant">
+        <div class="homeRestaurant">
             <div class="homeRestaurant_img">
                 <img :src="item.restaurant.image_path | formateImg">
             </div>
@@ -13,9 +13,6 @@
                     {{item.restaurant.recommend.reason}}
                 </span>
                 <p>
-                    <!-- <span v-if="item.restaurant.recommend."> -->
-                    <!-- {{item.restaurant.recommend.reason}} -->
-                <!-- </span> -->
                     {{item.restaurant.name}}
                 </p>
                 <span class="fengniao" v-if="item.restaurant.delivery_mode">{{item.restaurant.delivery_mode.text}}</span>
@@ -32,10 +29,10 @@
                         {{item.text}}
                     </span>
                 </p>
-                 <span class="activities_length" @click="showActive(index)">{{item.restaurant.activities.length}}个活动</span>
-                <p v-for="(item,index) in item.restaurant.activities" :key="index+'k'" v-if="index<2 || isShow==1">
-                    <span>{{item.icon_name}}</span>
-                    <span>{{item.tips}}</span>
+                 <span class="activities_length" @click="showActive()">{{item.restaurant.activities.length}}个活动</span>
+                <p v-for="(tab,index) in item.restaurant.activities" :key="index+'k'" v-if="index<2 || item.restaurant.isShow==true">
+                    <span>{{tab.icon_name}}</span>
+                    <span>{{tab.tips}}</span>
                 </p>
             </div>
         </div>
@@ -43,43 +40,36 @@
 </template>
 
 <script>
-import {restaurantData} from '../../services/homeService'
+
 export default {
-    data () {
-        return {
-            restaurantData:[],
-            isShow:0    
-        }
+    props:{
+        item:Object,
+        num:Number
     },
     methods:{
         showActive(){
-            this.isShow = !this.isShow ;
+            // console.log(this.item)
+            this.item.restaurant.isShow = !this.item.restaurant.isShow ;
         }
     },
-    mounted(){
-        restaurantData().then(res=>{
-            this.restaurantData = res ;
-        })
-    }
 }
 </script>
 
 <style scoped>
 #homeRestaurants{
     box-sizing: border-box;
-    padding: 0 15px 50px;
+    padding: 0 15px;
     font-size: 12px;
     color: #333;
 }
 .homeRestaurant{
-    /* width: 100%; */
     display: flex;
     padding: 10px 0;
+    box-sizing: border-box;
 }
 .homeRestaurant_img{
     flex: 1;
     float: left;
-    width: 130px;
 }
 .homeRestaurant_img img{
     width: 100%;
@@ -87,7 +77,6 @@ export default {
 }
 .homeRestaurant_detail{
     flex: 3;
-    width: 580px;
     margin-left: 15px;
     float: left;
 }

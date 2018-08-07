@@ -1,5 +1,5 @@
 <template>
-    <div id="discover" class="page">
+    <div id="discover">
         <h1>发现</h1>
     </div>
 </template>

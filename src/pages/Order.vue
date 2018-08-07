@@ -1,5 +1,5 @@
 <template>
-    <div id="order" class="page">
+    <div id="order">
         <h1>订单</h1>
     </div>
 </template>
