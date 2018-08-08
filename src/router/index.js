@@ -5,8 +5,10 @@ import Discover from '@/pages/Discover.vue'
 import Order from '@/pages/Order.vue'
 import Mine from '@/pages/Mine.vue'
 import Search from '@/components/home/Search'
+// import Location from '@/components/home/Location'
 import ShopDetail from '@/components/home/autoplayShop/ShopDetail'
 import SaleList from '@/components/home/autoplayShop/SaleList'
+
 
 Vue.use(Router)
 
@@ -47,6 +49,11 @@ export default new Router({
       name: 'salelist',
       component: SaleList
     },
+    // {
+    //   path: '/location',
+    //   name: 'location',
+    //   component: Location
+    // },
     {
       path: '**',
       component: Home

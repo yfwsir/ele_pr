@@ -84,7 +84,11 @@ export function shopDetailSaleData(){
 // 首页轮播进去的美食详情页顶部导航id
 export function shopNavData(id){
     return new Promise(resolve=>{
-        axios.get(API.SHOPNAV_API+'&entry_id=20004689')
+        axios.get(API.SHOPNAV_API,{
+            params:{
+                entry_id : 20004689
+            }
+        })
         .then(res=>{
             // console.log(res)
             resolve(res.data)
@@ -116,6 +120,47 @@ export function shopDetailData(id,page){
             resolve(res.data.items)
         })
         .catch(error=>{
+            console.log(error)
+        })
+    })
+}
+
+//请求卖座网接口的城市信息
+export function getCitiesData(){
+    return new Promise((resolve)=>{
+        axios.get(API.CITIES_DATA_API,{
+            params:{
+                __t:new Date().getTime()
+            }
+        })
+        .then(res=>{
+            // console.log('请求成功')
+            // console.log(res)
+            let data = res.data.data.cities
+            let citiesData = {}
+            let citiesDataSort = {}
+            data.map(item=>{
+                let letter = item.pinyin[0]
+                if(!citiesData[letter]){
+                    citiesData[letter] = []
+                }
+                citiesData[letter].push(item)
+            })
+
+            let arr = []
+            for(let key in citiesData){
+                arr.push(key)
+            }
+            arr = arr.sort()
+            // console.log(arr)
+            for(let i = 0;i < arr.length;i++){
+                citiesDataSort[arr[i]] = citiesData[arr[i]]
+            }
+            // console.log(citiesDataSort)
+            resolve(citiesDataSort)
+        })
+        .catch(error=>{
+            console.log('请求错误')
             console.log(error)
         })
     })

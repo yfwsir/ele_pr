@@ -14,6 +14,10 @@ module.exports = {
       '/restapi':{
         target:'https://h5.ele.me',
         changeOrigin:true
+      },
+      '/v4':{
+        target:'https://m.maizuo.com',
+        changeOrigin:true
       }
     },
 

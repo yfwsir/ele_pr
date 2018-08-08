@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import store from './store/index.js'
 Vue.config.productionTip = false
 
 // 引入过滤器，插件的形式
@@ -19,6 +19,7 @@ Vue.component('page',Page)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

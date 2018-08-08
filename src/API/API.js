@@ -50,7 +50,11 @@ const SHOPNAV_API = '/restapi/shopping/v2/foods_page/sift_factors?longitude=109.
 const SHOPDETAILDATA_API = '/restapi/shopping/v3/restaurants?latitude=18.25248&longitude=109.512093&keyword=&limit=8&extras[]=activities&extras[]=tags&terminal=h5&rank_id=407e826fbca445d798524395c1bc4d7e&brand_ids[]=';
 
 
-
+/*
+接口功能：请求城市的信息
+接口参数：__t:时间戳 
+*/
+const CITIES_DATA_API = 'v4/api/city';
 
 export default {
     RESTAURANTS_API,
@@ -58,5 +62,6 @@ export default {
     FOODDETAIL_API,
     SHOPDETAILSALE_API,
     SHOPNAV_API,
-    SHOPDETAILDATA_API
+    SHOPDETAILDATA_API,
+    CITIES_DATA_API
 }
