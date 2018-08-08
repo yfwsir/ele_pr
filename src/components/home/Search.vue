@@ -1,4 +1,5 @@
 <template>
+
     <div class="search">
 
         <div class="search_header">
@@ -14,7 +15,7 @@
             </div>
         </div>
 
-        <page id="search_page">
+        <page id="search_page" :onScroll="pageScrollY" ref="page1">
             <div class="search_main" v-if="isShowRestaurant == false">
                 <p>热点搜索</p>
                 <span v-for="(item,index) in hotSearchData" :key="index"
@@ -28,6 +29,7 @@
             </home-restaurant>
         </page>
     </div>
+
 </template>
 
 <script>
@@ -42,16 +44,34 @@ export default {
             hotSearchData:[],
             foodDetailData:[],
             isShowRestaurant:false,
-            inp:''
+            inp:'',
+            isCanGetData:true,
+            page:0,
+            keyword:''
         }
     },
     methods:{
         goFoodDetail(keyword){
+            this.keyword = keyword
+            this.inp = keyword
             this.isShowRestaurant = true ;
-            footDetailData(keyword).then(res=>{
+            footDetailData(keyword,this.page).then(res=>{
                 this.foodDetailData = res;
-                // console.log(this.foodDetailData)
             })
+        },
+        pageScrollY(y){
+            if(y<80 && this.isCanGetData){
+                // console.log(1)
+                this.isCanGetData = false;
+                this.page += 8
+                footDetailData(this.keyword,this.page).then(res=>{
+                    this.foodDetailData = [...this.foodDetailData,...res] ;
+                    this.$nextTick(()=>{
+                        this.$refs.page1.refreshScroll();
+                        this.isCanGetData = true;
+                    })
+                })
+            }
         },
         router_back(){
             this.$router.back()

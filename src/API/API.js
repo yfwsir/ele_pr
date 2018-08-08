@@ -19,8 +19,9 @@ const HOTSEARCH_API = '/restapi/shopping/v3/hot_search_words?latitude=18.25248&l
 /*
 接口功能：搜索关键字匹配的详情页
 接口参数：keyword:搜索的关键字
+        offset 数据开始的索引的位置
 */
-const FOODDETAIL_API = '/restapi/shopping/v2/restaurants/search?offset=0&limit=15&latitude=18.25248&longitude=109.512093&search_item_type=3&is_rewrite=1&extras[]=activities&extras[]=coupon&terminal=h5';
+const FOODDETAIL_API = '/restapi/shopping/v2/restaurants/search?limit=15&latitude=18.25248&longitude=109.512093&search_item_type=3&is_rewrite=1&extras[]=activities&extras[]=coupon&terminal=h5';
 
 
 

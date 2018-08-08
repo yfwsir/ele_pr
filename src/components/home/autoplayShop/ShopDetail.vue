@@ -1,6 +1,6 @@
 <template>
-<page class="shop_detail" :onScroll="pageScrollY" ref="page1">
-    <!-- <div class="shop_detail"> -->
+
+    <div class="shop_detail">
             <ul class="detail_nav">
                 <li v-for="(nav,index) in shopNavData" :key="index" class="detail_nav_item"
                         :class="{actived : isClass}"
@@ -9,7 +9,7 @@
                 </li>
             </ul>
        
-
+        <page :onScroll="pageScrollY" ref="page1" id="shop_detail_page">
             <div class="sale_list" v-if="isShow==true && shopDetailSaleData.query_list">
                 <span @click="gosaleList" class="seeMoreSale">更多</span>
                 <p class="sale_list_title">{{shopDetailSaleData.page_title}}</p>
@@ -34,9 +34,9 @@
             <home-restaurant v-for="(item,index) in shopDetailData" :key="index" 
                 :item="item">
             </home-restaurant>
-        
-    <!-- </div> -->
-</page>
+        </page>
+    </div>
+
 </template>
 
 <script>
@@ -72,7 +72,7 @@ export default {
         pageScrollY(y){
             // console.log('请求到了')
             if(y<80 && this.isCanGetData){
-                console.log(1,this.id)
+                // console.log(1,this.id)
                 this.isCanGetData = false;
                 this.page += 8
                 shopDetailData(this.id,this.page).then(res=>{
@@ -102,11 +102,9 @@ export default {
 </script>
 
 <style scoped>
-.shop_detail{
-    /* top: 74px; */
+#shop_detail_page{
+    top: 72px;
     bottom: 0;
-    background: white;
-    z-index: 5;
 }
 .shop_detail{
     width: 100%;

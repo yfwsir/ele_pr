@@ -15,7 +15,7 @@ export function restaurantData(page){
             res.data.items.map(item=>{
                 item.restaurant.isShow = false
             })
-            console.log(res.data.items)
+            // console.log(res.data.items)
             resolve(res.data.items)
         })
         .catch(error=>{
@@ -41,10 +41,14 @@ export function hotSearchData(){
 
 
 // 搜索关键字匹配的详情页数据
-export function footDetailData(keyword){
+export function footDetailData(keyword,page){
     return new Promise(resolve=>{
-        axios.get(API.FOODDETAIL_API+'&keyword='+keyword
-        )
+        axios.get(API.FOODDETAIL_API,{
+            params:{
+                keyword:keyword,
+                offset:page
+            }
+        })
         .then(res=>{
             // console.log(res.data.inside[0].restaurant_with_foods)
             res.data.inside[0].restaurant_with_foods.map(item=>{
@@ -108,7 +112,7 @@ export function shopDetailData(id,page){
             res.data.items.map(item=>{
                 item.restaurant.isShow = false
             })
-            console.log(res.data.items)
+            // console.log(res.data.items)
             resolve(res.data.items)
         })
         .catch(error=>{
