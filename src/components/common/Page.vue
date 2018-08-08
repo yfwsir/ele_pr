@@ -14,11 +14,28 @@
 
 <script>
 export default {
+    props: {
+        onScroll:Function
+    },
+    methods:{
+        refreshScroll(){
+            this.scroll.refresh();
+        }  
+    },
     mounted () {
-        let scroll = new IScroll(this.$refs.page)
+        let scroll = new IScroll(this.$refs.page,{
+            probeType: this.onScroll ? 3 : 0
+        })
+        this.scroll = scroll ;
         scroll.on('beforeScrollStart',()=>{
             scroll.refresh();
         });
+        scroll.on('scroll',()=>{
+            let bottomY = scroll.y - scroll.maxScrollY;
+            // console.log(bottomY)
+            // 把距底部的距离传出去
+            this.onScroll(bottomY);
+        })
     }
 }
 </script>

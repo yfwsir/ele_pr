@@ -1,5 +1,5 @@
 <template>
-<page>
+<page :onScroll="pageScrollY" ref="page1">
     <div id="home">
         <!-- 首页搜索框 -->
         <home-search></home-search>
@@ -23,14 +23,32 @@ export default {
     },
     data () {
         return {
+            page:0,
             restaurantData:[],
+            isCanGetData:true
+        }
+    },
+    methods:{
+        pageScrollY(y){
+            if(y<80 && this.isCanGetData){
+                console.log(1)
+                this.isCanGetData = false;
+                this.page += 8
+                restaurantData(this.page).then(res=>{
+                    this.restaurantData = [...this.restaurantData,...res] ;
+                    this.$nextTick(()=>{
+                        this.$refs.page1.refreshScroll();
+                        this.isCanGetData = true;
+                    })
+                })
+            }
         }
     },
     mounted(){
         // 获取首页商家列表的数据
-        restaurantData().then(res=>{
+        restaurantData(this.page).then(res=>{
             this.restaurantData = res ;
-            // console.log(this.restaurantData)
+
         })
     }
 }

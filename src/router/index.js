@@ -5,6 +5,8 @@ import Discover from '@/pages/Discover.vue'
 import Order from '@/pages/Order.vue'
 import Mine from '@/pages/Mine.vue'
 import Search from '@/components/home/Search'
+import ShopDetail from '@/components/home/autoplayShop/ShopDetail'
+import SaleList from '@/components/home/autoplayShop/SaleList'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '/shopdetail',
+      name: 'shopdetail',
+      component: ShopDetail
+    },
+    {
+      path: '/shopdetail/sale',
+      name: 'salelist',
+      component: SaleList
     },
     {
       path: '**',

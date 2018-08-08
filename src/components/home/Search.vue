@@ -40,7 +40,6 @@ export default {
     data () {
         return {
             hotSearchData:[],
-
             foodDetailData:[],
             isShowRestaurant:false,
             inp:''
@@ -51,7 +50,7 @@ export default {
             this.isShowRestaurant = true ;
             footDetailData(keyword).then(res=>{
                 this.foodDetailData = res;
-                console.log(this.foodDetailData)
+                // console.log(this.foodDetailData)
             })
         },
         router_back(){
