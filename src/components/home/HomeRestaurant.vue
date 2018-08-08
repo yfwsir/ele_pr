@@ -37,6 +37,7 @@
                     <span>{{tab.tips}}</span>
                 </p>
 
+                <!-- 如果有foods的数据就渲染显示 -->
                 <div v-if="item.foods">
                     <ul class="item_foods_ul">
                         <li v-for="(ele,key) in item.foods" :key="key+'qw'" v-if="key<3" class="item_foods_top">
