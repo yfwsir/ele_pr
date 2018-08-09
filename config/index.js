@@ -13,10 +13,11 @@ module.exports = {
     proxyTable: {
       '/restapi':{
         target:'https://h5.ele.me',
-        changeOrigin:true,
-        // pathRewhite:{
-        //   '^/api':''
-        // }
+        changeOrigin:true
+      },
+      '/v4':{
+        target:'https://m.maizuo.com',
+        changeOrigin:true
       }
     },
 

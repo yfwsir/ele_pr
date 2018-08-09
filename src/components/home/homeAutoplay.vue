@@ -36,7 +36,7 @@ export default {
     },
     methods:{
         getshopid(id){
-            this.$route.push({path:'/shopdetail',query:id})
+            this.$router.push({path:'/shopdetail',query:id})
         }
     },
     mounted(){

@@ -4,8 +4,8 @@
     <div class="footer">
       <router-link to="/home" class="footer_item"><i class="iconfont icon-home"></i><p>首页</p></router-link>
       <router-link to="/discover" class="footer_item"><i class="iconfont icon-discover"></i><p>发现</p></router-link>
-      <router-link to="order" class="footer_item"><i class="iconfont icon-order"></i><p>订单</p></router-link>
-      <router-link to="mine" class="footer_item"><i class="iconfont icon-mine"></i><p>我的</p></router-link>
+      <router-link to="/order" class="footer_item"><i class="iconfont icon-order"></i><p>订单</p></router-link>
+      <router-link to="/mine" class="footer_item"><i class="iconfont icon-mine"></i><p>我的</p></router-link>
     </div>
   </div>
 </template>
