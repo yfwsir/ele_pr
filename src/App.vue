@@ -24,7 +24,7 @@ html,body,#app{
 .footer{
   width: 100%;
   display: flex;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   background: #fff;

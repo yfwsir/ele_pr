@@ -7,6 +7,7 @@
             <p>推荐商家</p>
             <span></span>
         </div>
+        <Homefilter></Homefilter>
     </div>
 </template>
 
@@ -14,10 +15,12 @@
 import {getAutoplayData ,getScareBuyingData} from './../../services/homeServices.js';
 import Autoplay from './../../components/home/homeAutoplay.vue';
 import Scarebuying from './../../components/home/homeScareBuying.vue';
+import Homefilter from './../../components/home/homeFilter.vue';
 export default {
    components:{
        Autoplay,
-       Scarebuying
+       Scarebuying,
+       Homefilter
    },
    data(){
        return{

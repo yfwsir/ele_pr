@@ -3,10 +3,14 @@
     <div class="swiper-container" ref="autoplay">
         <div class="swiper-wrapper">
             <div class="swiper-slide " >
-                <div  class = "onepage" v-for="(item,index) in data" :key="index">
+                <div  
+                class = "onepage"
+                 v-for="(item,index) in data" :key="index"
+                 @click="getshopid(item.id)"
+                >
                     <div class="listbox">
                         <img alt=""  :src="item.image_hash|formateImg">
-                        <p>{{item.description}}</p>
+                        <p>{{item.imgname}}</p>
                     </div>
                 </div>
             </div>
@@ -14,7 +18,7 @@
                 <div class= "twopage" v-for="(item,index) in twoData" :key="index">
                     <div class="listbox">
                         <img alt="" :src="item.image_hash|formateImg">
-                        <p>{{item.description}}</p>
+                        <p>{{item.imgname}}</p>
                     </div>
                 </div>
             </div>
@@ -29,6 +33,11 @@ export default {
     props:{
         data:Array,
         twoData:Array
+    },
+    methods:{
+        getshopid(id){
+            this.$route.push({path:'/shopdetail',query:id})
+        }
     },
     mounted(){
         this.autoplaySwiper = new Swiper(this.$refs.autoplay,{
@@ -61,14 +70,15 @@ export default {
       position: relative;
   }
   .listbox img{
-      width:40px;
+      width:45px;
       position: relative;
       left:50%;
       top:50%;
       margin-left:-20px;
-      margin-top:-20px;
+      margin-top:-30px;
   }
   .listbox p{
+      margin-top:5px;
       position: relative;
       left:0;
       top:50%;

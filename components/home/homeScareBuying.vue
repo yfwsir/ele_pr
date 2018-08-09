@@ -1,16 +1,16 @@
 <template>
     <div id="scarebuying">
-        <div class="scarebuying_left">
-            <h4>{{scareBuying[0].name}}</h4>
-            <p>{{scareBuying[0].description}}</p>
-            <p>{{scareBuying[0].population}}人正在抢<span class="iconfont icon-arrow-left"> </span></p>
+        <div class="scarebuying_left" v-for="(item, index) in scareBuying" :key="index">
+            <h4>{{item.imgname}}</h4>
+            <p>{{item.description}}</p>
+            <p>{{item.population}}人正在抢<span class="iconfont icon-arrow-left"> </span></p>
             <img :src="scareBuying[0].image_hash|formateImg" alt="">
         </div>
-        <div class="scarebuying_right">
-            <h4>{{scareBuying[0].name}}</h4>
-            <p>{{scareBuying[0].description}}</p>
-            <p>{{scareBuying[0].population}}人正在抢<b class="iconfont icon-arrow-left"> </b></p>
-            <img :src="scareBuying[0].image_hash|formateImg" alt="">
+        <div class="scarebuying_right" v-for="item in scareBuying" :key="item.id">
+            <h4>{{item.imgname}}</h4>
+            <p>{{item.description}}</p>
+            <p>{{item.population}}人正在抢<b class="iconfont icon-arrow-left"> </b></p>
+            <img :src="item.image_hash|formateImg" alt="">
         </div>
     </div>
 </template>

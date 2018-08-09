@@ -8,7 +8,7 @@ export function getAutoplayData(){
             //  console.log(response)
             let data =response.data[0].entries.map(item=>{
                     return{
-                         description:item.name,
+                         imgname:item.name,
                          image_hash:item.image_hash,
                          id:item.id
                   }
@@ -29,7 +29,7 @@ export function getScareBuyingData(){
              console.log(response.data[1].entries)
             let data =response.data[1].entries.map(item=>{
                     return{
-                         name:item.name,
+                         imgname:item.name,
                          image_hash:item.image_hash,
                          id:item.id,
                          description:item.description,
