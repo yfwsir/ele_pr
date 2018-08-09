@@ -68,7 +68,7 @@ export default {
         color:#e81919;
     }
     .scarebuying_left img,.scarebuying_right img{
-        width:110px;
+        width:84px;
         position: absolute;
         right:0;
         bottom:0;

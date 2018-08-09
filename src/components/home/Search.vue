@@ -15,6 +15,8 @@
             </div>
         </div>
 
+        <home-filter v-if="isShowRestaurant == true"></home-filter>
+
         <page id="search_page" :onScroll="pageScrollY" ref="page1">
             <div class="search_main" v-if="isShowRestaurant == false">
                 <p>热点搜索</p>
@@ -35,9 +37,11 @@
 <script>
 import {hotSearchData,footDetailData} from '../../services/homeService'
 import HomeRestaurant from './HomeRestaurant.vue'
+import HomeFilter from './homeFilter.vue'
 export default {
     components:{
-        HomeRestaurant
+        HomeRestaurant,
+        HomeFilter
     },
     data () {
         return {

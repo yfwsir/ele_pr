@@ -24,7 +24,8 @@ export default {
     },
     mounted () {
         let scroll = new IScroll(this.$refs.page,{
-            probeType: this.onScroll ? 3 : 0
+            probeType: this.onScroll ? 3 : 0,
+            scrollX:true
         })
         this.scroll = scroll ;
         scroll.on('beforeScrollStart',()=>{

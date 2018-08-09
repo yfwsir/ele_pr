@@ -133,7 +133,7 @@ export default {
 <style>
     #homefilter{
         width:100%;
-
+        background: white;
     }
     .filter {
         display: flex;
@@ -141,6 +141,7 @@ export default {
         color:#b2b2b2;
         font-size:14px;
         border-bottom:1px solid #fbfbfb;
+        line-height: 35px;
     }
     .filter  li {
         flex:1;
@@ -156,6 +157,7 @@ export default {
         line-height:40px;
         text-indent: 2rem;
         position: relative;
+        background: white;
     }
     .sort p span{
         position: absolute;
@@ -164,6 +166,8 @@ export default {
         font-size:12px;
         font-weight: bold;
         color:#2596ff;
+        background: white;
+        z-index: 10;
     }
     .shade{
         height:260px;
@@ -172,6 +176,8 @@ export default {
         opacity:0.1;
         position: absolute;
         top:765px;
+        background: white;
+        z-index: 10;
     }
     .merchantservices, .vourable, .consumption{
         width:100%;

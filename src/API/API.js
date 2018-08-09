@@ -51,10 +51,21 @@ const SHOPDETAILDATA_API = '/restapi/shopping/v3/restaurants?latitude=18.25248&l
 
 
 /*
-接口功能：请求城市的信息
+接口功能：卖座网请求城市的信息
 接口参数：__t:时间戳 
 */
-const CITIES_DATA_API = 'v4/api/city';
+const CITIES_DATA_API = '/v4/api/city';
+
+
+//接口功能 ：商家详情
+    // 接口参数： restaurant_id 商家的id
+// https://restapi.ele.me/shopping/v2/menu?restaurant_id=1334126
+const SHOP_DETAIL_API = '/shopping/v2/menu'
+
+
+// 商家评论：
+// https://restapi.ele.me/ugc/v2/restaurants/1334126/ratings/tags
+
 
 export default {
     RESTAURANTS_API,
@@ -63,5 +74,6 @@ export default {
     SHOPDETAILSALE_API,
     SHOPNAV_API,
     SHOPDETAILDATA_API,
-    CITIES_DATA_API
+    CITIES_DATA_API,
+    SHOP_DETAIL_API
 }
