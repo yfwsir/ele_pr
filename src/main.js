@@ -17,6 +17,7 @@ import Page from './components/common/Page.vue'
   // 全局组件名称，哪个组件
 Vue.component('page',Page)
 
+Vue.prototype.$center = new Vue()
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

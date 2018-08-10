@@ -5,14 +5,14 @@
     
     <Header/>
     <ul class="cityNav">
-        <li v-for="(value,key) in citiesData" :key="key" class="cityNav_item" @click="changeHeight()">
-            <a :href="'#'+key">{{key}}</a>   
+        <li v-for="(value,key) in citiesData" :key="key" class="cityNav_item" @click="changeHeight(key)">
+           {{key}}
         </li>
     </ul>
     <page id="location_page" ref="page1"> 
         <div class="cities">
-            <div v-for="(value,key) in citiesData" :key="key" ref="list">
-                <p class="citiesKey" :id="key">{{key}}</p>
+            <div v-for="(value,key) in citiesData" :key="key" :ref="key">
+                <p class="citiesKey">{{key}}</p>
                 <ul class="citiesList">
                     <li v-for="(item,index) in value" :key="index" 
                             class="citiesItem" @click="changeCity(item.name)">
@@ -47,17 +47,18 @@ export default {
             this.$store.commit('changeCityName',city)
             this.back_home()
         },
-        changeHeight(){
-            
+        changeHeight(key){
+            // console.log(this.$refs[key][0].offsetHeight)
+            this.$center.$emit('toScroll',this.$refs[key][0].offsetTop)
         }
     },
     mounted(){
         this.$store.commit('changeHeaderTitle','请选择城市')
         getCitiesData().then(res=>{
             this.citiesData = res ;
-            this.$nextTick(()=>{
-                console.log(this.$refs);
-            })
+            // this.$nextTick(()=>{
+            //     console.log(this.$refs);
+            // })
         })
     }
 }

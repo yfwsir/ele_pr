@@ -22,6 +22,12 @@ export default {
 .food_list{
     width: 120px;
 }
+.food_list p{
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .food_img{
     width: 120px;
 }

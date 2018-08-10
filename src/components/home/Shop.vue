@@ -1,7 +1,7 @@
 <template>
     <div class="shop">
-    <page id="shop">
-        <div class="header">
+    <!-- <page id="shop"> -->
+        <div class="header" :style="{backgroundImage: 'url(' + url + ')' }">
             <div class="header_img">
                 <img :src="data.image_path | formateImg" alt="">
             </div>
@@ -36,82 +36,89 @@
         <div class="food_all">
             <ul class="food_ul">
                 <li v-for="(item,index) in foodData" :key="index">
+                    <a :href="'#' + index">
                     <div class="ul_img">
                         <img :src="item.icon_url | formateImg" alt="" v-if="item.icon_url">
                     </div>
                     {{item.name}}
+                    </a>
                 </li>
             </ul>
 
-            <div class="food_detail">
-                <ul v-for="(item,index) in foodData" :key="index">
-                    <li>
+            <div class="food_detail1">
+                <ul v-for="(item,index) in foodData" :key="index" class="food_detail_ul" :ref="index">
+                    <li :id="index">
                         <span class="food_detail_title">{{item.name}}</span>
                         <span class="food_detail_des">{{item.description}}</span>
                     </li>
                     <li v-for="(value,index) in item.foods" :key="index">
-                        <Foods :data="value"></Foods>
+                        <food-detail :data="value"></food-detail>
                     </li>
-                    <!-- <li v-for="(value,index) in item.foods" :key="index+'a'">
-                        <food-detail></food-detail>
-                    </li> -->
                 </ul>
             </div>
         </div>
-    </page>
+    <!-- </page> -->
     </div>
 
 </template>
 
 <script>
-import { shopData } from '../../services/homeService'
+import {shopData } from '../../services/homeService'
 import Foods from './Foods.vue'
 import FoodDetail from './FoodDetail.vue'
 export default {
     components:{
-        Foods
+        Foods,
+        FoodDetail
     },
     data () {
         return {
             data:{},
             foodData:[],
             foodItem:[],
-            FoodDetail      
+            FoodDetail,
+            url:''      
         }
     },
     created(){
         this.data = this.$route.query.data.restaurant
         // console.log(this.data)
+        if(this.data.image_path.indexOf('jpeg')>-1){
+            this.url ='http://fuss10.elemecdn.com/' + this.data.image_path + '.jpeg?imageMogr/format/webp/thumbnail/750x/thumbnail/!40p/blur/50x40/'
+        }else{
+            this.url ='http://fuss10.elemecdn.com/' + this.data.image_path + '.png?imageMogr/format/webp/thumbnail/750x/thumbnail/!40p/blur/50x40/'
+        }
     },
     mounted(){
         shopData(this.data.id).then(res=>{
             this.foodData = res;
             this.foodItem = this.foodData[0].foods
-            console.log(this.foodData)
         })
     }
 }
 </script>
 
 <style scoped>
-#shop{
+/* #shop{
     bottom: 0;
-}
+} */
 .shop{
     position: absolute;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     top: 0;
     left: 0;
-    bottom: 0;
+    /* bottom: 0; */
     background: white;
-    z-index: 5;
+    z-index: 15;
 }
 .header{
-    background: sandybrown;
+    /* background: sandybrown; */
     width: 100%;
     height: 100px;
     margin-bottom: 30px;
+    background-size: cover;
+    background-repeat:no-repeat;
 }
 .header_img{
     position: absolute;
@@ -120,7 +127,6 @@ export default {
     transform: translateX(-50%)
 }
 .shop_basic{
-    /* width: 100%; */
     padding: 0 30px;
 }
 .shop_basic p{
@@ -150,7 +156,7 @@ export default {
     width: 100%;
     overflow: auto;
     margin-top: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .recommend_list{
     width: 1500px;
@@ -177,9 +183,13 @@ export default {
     margin-right: 5px;
 }
 .food_ul{
-    width: 70px;
+    width: 80px;
     padding-left: 10px;
     float: left;
+    margin-right: 10px;
+    font-size: 14px;
+    height: 500px;
+    overflow-y: auto;
 }
 .food_ul li{
     height: 50px;
@@ -188,9 +198,11 @@ export default {
     position: relative;
     overflow: hidden;
 }
-.food_detail{
+.food_detail1{
     width: 260px;
-    float: right;
+    /* float: left; */
+    height: 667px;
+    overflow: auto;
 }
 
 .food_detail_title{
