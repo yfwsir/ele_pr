@@ -90,7 +90,7 @@ export default {
     margin-top: 3px;
 }
 .slideInRight,.slideOutRight{
-    animation-duration: 1000ms;
+    animation-duration: 200ms;
 }
 
 .cityNav{

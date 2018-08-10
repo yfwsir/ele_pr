@@ -25,7 +25,8 @@ export default {
     },
     data () {
        return {
-           listTitle:['商品名','数量','单价','总价']
+           listTitle:['商品名','数量','单价','总价'],
+           totalPrice:0
        }
    },
    created(){
@@ -37,6 +38,13 @@ export default {
 <style scoped>
 .product_list,.product_title{
     display: flex;
+    line-height: 40px;
+    text-align: center;
+}
+.product_title{
+    line-height: 40px;
+    background: rosybrown;
+    color: white;
 }
 .order_name{
     flex: 2;

@@ -16,8 +16,8 @@ const store = new Vuex.Store({
         changeShopData(state,params){
             state.shopData = params ;
         },
-        change(state,params){
-            state.headerTitle = params ;
+        changeCityName(state,params){
+            state.cityName = params ;
         },
         changeOrderData(state,params){
             state.isAdd = true

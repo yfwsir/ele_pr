@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <!-- <keep-alive> -->
     <router-view/>
+    <!-- </keep-alive> -->
     <div class="footer">
       <router-link to="/home" class="footer_item"><i class="iconfont icon-home"></i><p>首页</p></router-link>
       <router-link to="/discover" class="footer_item"><i class="iconfont icon-discover"></i><p>发现</p></router-link>

@@ -121,9 +121,14 @@ export default {
 
 <style scoped>
 .goBuyCar{
-    position: absolute;
-    top: 50px;
-    left: 0;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 20px;
+    background: green;
+    color: white;
+    border-radius: 20px;
 }
 
 /* #shop{
