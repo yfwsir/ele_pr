@@ -12,7 +12,7 @@ export default {
         })
 
         Vue.filter('formateSale',(value)=>{
-            return value.toFixed(1)
+            return value.toFixed(2)
         })
 
         // Vue.filter('formateBack',(value)=>{

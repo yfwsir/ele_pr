@@ -94,8 +94,10 @@ export default {
             }
         },
         goShop(item){
-            this.$router.push({path:'/shop',query:{data:item}})
+            // this.$router.push({path:'/shop',query:{data:item}})
+            this.$router.push({path:'/shop'})
             // console.log(this.$route)
+            this.$store.commit('changeShopData',item)
         }
     },
 }

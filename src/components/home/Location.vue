@@ -56,9 +56,6 @@ export default {
         this.$store.commit('changeHeaderTitle','请选择城市')
         getCitiesData().then(res=>{
             this.citiesData = res ;
-            // this.$nextTick(()=>{
-            //     console.log(this.$refs);
-            // })
         })
     }
 }

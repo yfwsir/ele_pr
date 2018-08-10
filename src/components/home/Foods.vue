@@ -5,15 +5,61 @@
         </div>
         <p class="food_name">{{data.name}}</p>
         <p class="food_count">月售{{data.month_sales}} 好评率{{data.satisfy_rate}}%</p>
-        <p><span class="food_price">￥{{data.specfoods[0].price}}</span><span class="food_add"> + </span></p>
+        <p><span class="food_price">￥{{data.specfoods[0].price}}</span></p>
+        <p class="food_btn">
+            <span class="food_dec" @click="decClick" v-if="one_count>0"> - </span>
+            <input type="number" class="num_count" v-model.number="one_count" v-if="one_count>0">
+            <span class="food_add" @click="addClick"> + </span>
+        </p>
     </div>
 </template>
 
 <script>
 export default {
     props:["data"],
-    mounted(){
-        // console.log(this.data)
+    data () {
+        return {
+            one_count:0,
+            obj:{}
+        }
+    },
+    computed:{
+        total_price(){
+           var total_price = 0 ;
+           total_price = this.one_count * this.data.specfoods[0].price ;
+           return total_price
+        }
+    },
+    methods:{
+        // sendData(){
+        //     this.obj.name = this.data.name
+        //     this.obj.num = this.one_count
+        //     this.obj.price = this.data.specfoods[0].price
+        //     this.obj.total_price = this.total_price
+        // },
+        addClick(){
+            this.one_count++
+           
+            // console.log(this.obj)
+            // this.$center.$emit('orderData',this.obj)
+            this.$store.commit('changeOrderData',{
+                name:this.data.name,
+                num:this.one_count,
+                price:this.data.specfoods[0].price,
+                total_price:this.total_price
+            })
+            console.log(this.$store.state.orderData)
+        },
+        decClick(){
+            if(this.one_count<=0){
+                this.one_count = 0;
+            }else{
+                this.one_count--
+            }
+          
+            // this.$center.$emit('orderData',this.obj)
+            // console.log(this.obj)
+        }
     }
 }
 </script>
@@ -47,6 +93,9 @@ export default {
     font-size: 14px;
     color: rgb(255, 83, 57);
 }
+.food_btn{
+    float: right;
+}
 .food_add{
     display: block;
     float: right;
@@ -57,5 +106,24 @@ export default {
     text-align: center;
     color: white;
     line-height: 20px;
+}
+.food_dec{
+    display: block;
+    box-sizing: border-box;
+    float: left;
+    width: 20px;
+    height: 20px;
+    border: solid 1px rgb(35, 149, 255);
+    color: rgb(35, 149, 255);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+}
+.num_count{
+    border: 0;
+    outline: none;
+    width: 12px;
+    height: 20px;
+    margin: 0 5px;
 }
 </style>

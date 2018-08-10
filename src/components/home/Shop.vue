@@ -31,11 +31,13 @@
 
         <div class="recommend">
             <p class="shop_recommend">商家推荐</p>
+            <keep-alive>
             <div class="recommend_list">
                 <Foods v-for="(item,index) in foodItem" :key="index" 
                     :data="item" class="recommend_item" v-if="index<7">
                 </Foods>
             </div>
+            </keep-alive>
         </div>
 
         <div class="food_all">
@@ -63,6 +65,10 @@
             </div>
         </div>
     <!-- </page> -->
+        <!-- 加入购物车 -->
+        <div class="goBuyCar" @click="goBuyCar">
+            <p>跳去订单页面</p>
+        </div>
     </div>
 
 </template>
@@ -88,11 +94,15 @@ export default {
     methods:{
         shop_back(){
             this.$router.back() ;
+        },
+        goBuyCar(){
+            this.$router.push({path:'/order'})
         }
     },
     created(){
-        this.data = this.$route.query.data.restaurant
-        // console.log(this.data)
+        // this.data = this.$route.query.data.restaurant
+        this.data = this.$store.state.shopData.restaurant
+        // console.log(this.$store.state.shopData)
         if(this.data.image_path.indexOf('jpeg')>-1){
             this.url ='http://fuss10.elemecdn.com/' + this.data.image_path + '.jpeg?imageMogr/format/webp/thumbnail/750x/thumbnail/!40p/blur/50x40/'
         }else{
@@ -103,13 +113,19 @@ export default {
         shopData(this.data.id).then(res=>{
             this.foodData = res;
             this.foodItem = this.foodData[0].foods
-            console.log(this.foodData)
+            // console.log(this.foodData)
         })
     }
 }
 </script>
 
 <style scoped>
+.goBuyCar{
+    position: absolute;
+    top: 50px;
+    left: 0;
+}
+
 /* #shop{
     bottom: 0;
 } */
