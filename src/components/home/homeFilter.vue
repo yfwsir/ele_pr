@@ -8,7 +8,9 @@
         </ul>
         <div>
             <div class="sort" v-if="show" v-for="(item , index ) in filterList" :key="index">
-                <p ref="in" @click="showSpan(index)">{{item.name}}<span v-if="isShow">√</span></p>
+                <p ref="in" @click="showSpan(item.name)"
+                :class="{actived:showspanname==item.name}"
+                >{{item.name}}<span v-if="showspanname==item.name">√</span></p>
             </div>
             <div class="shade" v-if="show" @click="hidden()"></div>
         </div>
@@ -18,8 +20,9 @@
                     <ul>
                         <li 
                         v-for="(item, index) in merchantServicesList" :key="index"
-                        @click="showvourablecolor()"
-                        :class="actived"
+                        @click="showvourablecolor(item.name,index)"
+                        :class="{actived:servicesname==item.name}"
+                        ref="itemname"
                         >
                             {{item.name}}
                         </li>
@@ -30,6 +33,8 @@
                     <ul>
                         <li
                          v-for="(item , index ) in vourableServicesList" :key="index"
+                         @click="showcolor(item.name)"
+                        :class="{actived:servicesname==item.name}"
                         >
                         {{item.name}}
                         </li>
@@ -39,12 +44,13 @@
             <div class="consumption">
                     <p>人均消费</p>
                     <ul>
-                        <li><span></span>¥20以下</li>
-                        <li><span></span>¥20-¥40</li>
-                        <li><span></span>¥40-¥60</li>
-                        <li><span></span>¥60-¥80</li>
-                        <li><span></span>¥80-¥100</li>
-                        <li><span></span>¥100以上</li>
+                        <li v-for="(item , index ) in consumptionList" :key="index"
+                        @click="showcolor(item.name)"
+                        :class="{actived:servicesname==item.name}"
+                        >
+                        {{item.name}}
+                        </li>
+
                     </ul>
             </div>  
             <div class="buttonbox">
@@ -52,7 +58,7 @@
                 <button @click="okBtn()">确定</button>
             </div>
             <div class="filtershade" @click="hidden()">
-
+          
             </div>
         </div>
     </div>
@@ -66,6 +72,8 @@ export default {
             isShow:false,
             showFilter:false,
             actived:'',
+            showspanname:'',
+            servicesname:'',
             filterList:[
                 {name:'综合排序'},
                 {name:'好评优先'},
@@ -92,6 +100,14 @@ export default {
                 {name:'赠品优惠'},
                 {name:'下单返红包'},
                 {name:'进店领红包'}
+            ],
+            consumptionList:[
+                 {name:'¥20以下'},
+                {name:'¥20-¥40'},
+                {name:'¥40-¥60'},
+                {name:'¥60-¥80'},
+                {name:'¥80-¥100'},
+                {name:'¥100以上'}
             ]
         }
     },
@@ -108,9 +124,10 @@ export default {
             this.show=false;
             this.showFilter=false;
         },
-        showSpan(){
+        showSpan(name){
             this.isShow=true;
             this.show=false;
+            this.showspanname=name;
         },
         activeIance(){
             if(this.showFilter==1){
@@ -123,8 +140,15 @@ export default {
         okBtn(){
             this.showFilter=false;
         },
-        showvourablecolor(){
-           this.actived='actived'
+        showcolor(name){
+           this.servicesname=name
+        },
+        showvourablecolor(name,index){
+            if(this.$refs.itemname[index].className==""){
+               this.servicesname=name
+            }else if(this.$refs.itemname[index].className!=""){
+                this.servicesname=""
+            }
         }
     }
 }
@@ -133,7 +157,7 @@ export default {
 <style>
     #homefilter{
         width:100%;
-
+        background:white;
     }
     .filter {
         display: flex;
@@ -157,13 +181,15 @@ export default {
         text-indent: 2rem;
         position: relative;
     }
+    .sort .actived{
+      color:#2596ff;
+    }
     .sort p span{
         position: absolute;
         right:20px;
         top:0;
         font-size:12px;
         font-weight: bold;
-        color:#2596ff;
     }
     .shade{
         height:260px;
@@ -218,7 +244,7 @@ export default {
         background:#999;
         opacity:0.1;
     }
-   .merchantservices .actived{
+   .merchantservices .actived,.vourable .actived , .consumption .actived{
         background:#edf5ff;
     }
 </style>
