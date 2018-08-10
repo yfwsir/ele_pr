@@ -51,6 +51,7 @@ export default {
     bottom: 0;
     background: #f5f5f5;
     font-size: 16px;
+    font-size: 16px;
 }
 #location{
     width: 100%;
