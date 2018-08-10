@@ -40,7 +40,7 @@ export default {
 
         // 监听定位页面传来的距顶部的距离
         this.$center.$on('toScroll',scroll=>{
-            console.log(scroll)
+            // console.log(scroll)
             this.scroll.scrollTo(0,-scroll)
         })
     }

@@ -5,6 +5,9 @@
             <div class="header_img">
                 <img :src="data.image_path | formateImg" alt="">
             </div>
+            <div class="shop_back" @click="shop_back">
+                <i class="iconfont icon-icon"></i>
+            </div>
         </div>
 
         <div class="shop_basic">
@@ -17,8 +20,10 @@
                 </span>  
             </p>
             <span class="shop_length">{{data.activities.length}}个活动</span>
-            <p class="shop_act">
-                <span :style="{backgroundColor:'#' + data.activities[1].icon_color,color:'#fff'}">{{data.activities[1].icon_name}}</span>
+            <p class="shop_act"  v-if="data.activities[1]">
+                <span :style="{backgroundColor:'#' + data.activities[1].icon_color,color:'#fff'}">
+                    {{data.activities[1].icon_name}}
+                </span>
                 <span>{{data.activities[1].tips}}</span>
             </p>
         </div>
@@ -80,6 +85,11 @@ export default {
             url:''      
         }
     },
+    methods:{
+        shop_back(){
+            this.$router.back() ;
+        }
+    },
     created(){
         this.data = this.$route.query.data.restaurant
         // console.log(this.data)
@@ -93,6 +103,7 @@ export default {
         shopData(this.data.id).then(res=>{
             this.foodData = res;
             this.foodItem = this.foodData[0].foods
+            console.log(this.foodData)
         })
     }
 }
@@ -111,6 +122,14 @@ export default {
     /* bottom: 0; */
     background: white;
     z-index: 15;
+}
+.shop_back{
+    position: absolute;
+    top: 0;
+    left: 20px;
+    font-size: 16px;
+    line-height: 50px;
+    /* color: white; */
 }
 .header{
     /* background: sandybrown; */

@@ -28,7 +28,7 @@
 export default {
     props:["data"],
     mounted(){
-        // console.log(this.data)
+        // console.log(this.$route)
     }
 }
 </script>

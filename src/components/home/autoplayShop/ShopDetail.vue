@@ -6,9 +6,9 @@
         <div class="nav_box">
             <ul class="detail_nav">
                 <li v-for="(nav,index) in shopNavData" :key="index" class="detail_nav_item"
-                        :class="{actived : isClass}"  v-if="nav.restaurant_category_ids"
-                        @click="changeTab(nav.restaurant_category_ids)">
-                    {{nav.name}}
+                          v-if="nav.restaurant_category_ids"
+                        @click="changeTab(nav.restaurant_category_ids,index)">
+                    <span class="detail_nav_item_span" :class="{actived : index == isClass}">{{nav.name}}</span>
                 </li>
             </ul>
         </div>
@@ -61,17 +61,17 @@ export default {
             shopDetailData:[],
             shopDetailSaleData:{},
             isShow:true,
-            isClass:false,
             id:-1,
             isCanGetData:true,
-            page:0
+            page:0,
+            isClass:0
         }
     },
     methods:{
         gosaleList(){
             this.$router.push({path:'/shopdetail/sale'})
         },
-        changeTab(id){
+        changeTab(id,index){
             shopDetailData(id,this.page).then(res=>{
                 this.id = id
                 this.shopDetailData = res ;
@@ -81,6 +81,8 @@ export default {
                     this.isCanGetData = true;
                 })
             })
+
+            this.isClass = index;
         },
         pageScrollY(y){
             // console.log('请求到了')
@@ -152,10 +154,12 @@ export default {
 .detail_nav_item{
     float: left;
     padding: 0 28px;
+}
+.detail_nav_item_span{
     color: white;
+    opacity: 0.7;
     line-height: 40px;
 }
-
 .sale_list{
     padding: 0 15px;
 }
@@ -169,7 +173,9 @@ export default {
     margin-bottom: 15px;
 }
 .actived{
-    background: black;
+    opacity: 1;
+    border-bottom: 2px solid #fff;
+    font-weight: 700;
 }
 .salelist_li{
     flex: 33%;
