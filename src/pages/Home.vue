@@ -30,6 +30,8 @@ import Homefilter from './../components/home/homeFilter.vue';
 // 引入首页商家列表模块
 import HomeRestaurant from '../components/home/HomeRestaurant.vue';
 import HomeSearch from '../components/home/HomeSearch.vue';
+
+import tmp from '../tmp.js'
 export default {
    components:{
        Autoplay,
@@ -55,7 +57,7 @@ export default {
           this.twoPageData= result.slice(10,13)
         })
         getScareBuyingData().then(result=>{
-            console.log(result)
+            // console.log(result)
             this.scareBuyingData=result;
         })
         restaurantData(this.page).then(res=>{
@@ -66,7 +68,7 @@ export default {
    methods:{
         pageScrollY(y){
             if(y<80 && this.isCanGetData){
-                console.log(1)
+                // console.log(1)
                 this.isCanGetData = false;
                 this.page += 8
                 restaurantData(this.page).then(res=>{

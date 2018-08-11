@@ -26,7 +26,7 @@ export function getScareBuyingData(){
         axios.get(
             '/restapi/shopping/openapi/entries?latitude=22.54286&longitude=114.059563&templates[]=main_template&templates[]=favourable_template&templates[]=svip_template&terminal=h5'
         ).then(response=>{
-             console.log(response.data[1].entries)
+            //  console.log(response.data[1].entries)
             let data =response.data[1].entries.map(item=>{
                     return{
                          imgname:item.name,
@@ -129,7 +129,7 @@ export function shopNavData(id){
     return new Promise(resolve=>{
         axios.get(API.SHOPNAV_API,{
             params:{
-                entry_id : 20004689
+                entry_id : id
             }
         })
         .then(res=>{
@@ -204,6 +204,27 @@ export function getCitiesData(){
         })
         .catch(error=>{
             console.log('请求错误')
+            console.log(error)
+        })
+    })
+}
+
+//请求商家详情
+export function shopData(id){
+    return new Promise(resolve=>{
+        axios.get(API.SHOP_DETAIL_API,
+            {
+                params:
+                    {
+                        restaurant_id:id
+                    }
+            }
+        )
+        .then(res=>{
+            // console.log(res.data)
+            resolve(res.data)
+        })
+        .catch(error=>{
             console.log(error)
         })
     })

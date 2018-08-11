@@ -6,7 +6,7 @@
                 <div  
                 class = "onepage"
                  v-for="(item,index) in data" :key="index"
-                 @click="getshopid(item.id)"
+                 @click="getshopid(item.id,item.imgname)"
                 >
                     <div class="listbox">
                         <img alt=""  :src="item.image_hash|formateImg">
@@ -39,8 +39,8 @@ export default {
         twoData:Array
     },
     methods:{
-        getshopid(id){
-            this.$router.push({path:'/shopdetail',query:id})
+        getshopid(id,name){
+            this.$router.push({path:'/shopdetail',query:{id:id,name:name}})
         }
     },
     mounted(){

@@ -1,32 +1,39 @@
 <template>
+<transition enter-active-class="slideInRight" leave-active-class="slideOutRight">
+
 <div id="location">
-    <!-- <transition-group enter-active-class="slideInLeft" leave-active-class="slideOutLeft"> -->
-    <div class="location_back" @click="back_home">
-        <i class="iconfont icon-icon"></i>
-    </div>
-    <div class="location_header">
-        <p class="select">选择收获地址</p>
-    </div>
-    <page id="location_page">
+    
+    <Header/>
+    <ul class="cityNav">
+        <li v-for="(value,key) in citiesData" :key="key" class="cityNav_item" @click="changeHeight()">
+            <a :href="'#'+key">{{key}}</a>   
+        </li>
+    </ul>
+    <page id="location_page" ref="page1"> 
         <div class="cities">
-            <div v-for="(value,key) in citiesData" :key="key">
-                <p class="citiesKey">{{key}}</p>
+            <div v-for="(value,key) in citiesData" :key="key" ref="list">
+                <p class="citiesKey" :id="key">{{key}}</p>
                 <ul class="citiesList">
                     <li v-for="(item,index) in value" :key="index" 
-                            class="citiesItem">
+                            class="citiesItem" @click="changeCity(item.name)">
                         {{item.name}}
                     </li>
                 </ul>
             </div>
         </div>
     </page>
-    <!-- </transition-group> -->
 </div>
+</transition>
+
 </template>
 
 <script>
 import {getCitiesData} from '../../services/homeService'
+import Header from '../common/Header.vue'
 export default {
+    components:{
+        Header
+    },
     data () {
         return {
             citiesData:{}      
@@ -35,11 +42,22 @@ export default {
     methods:{
         back_home(){
             this.$router.back() ;
+        },
+        changeCity(city){
+            this.$store.commit('changeCityName',city)
+            this.back_home()
+        },
+        changeHeight(){
+            
         }
     },
     mounted(){
+        this.$store.commit('changeHeaderTitle','请选择城市')
         getCitiesData().then(res=>{
             this.citiesData = res ;
+            this.$nextTick(()=>{
+                console.log(this.$refs);
+            })
         })
     }
 }
@@ -62,26 +80,6 @@ export default {
     background: white;
     z-index: 5;
 }
-.location_header{
-    width: 100%;
-    height: 50px;
-    background: #0af;
-}
-.select{
-    width: 100%;
-    line-height: 50px;
-    text-align: center;
-    color: white;
-    font-weight: 700;
-}
-.location_back{
-    position: absolute;
-    top: 0;
-    left: 20px;
-    font-size: 16px;
-    line-height: 50px;
-    color: white;
-}
 .citiesKey{
     line-height: 50px;
     padding-left: 15px;
@@ -93,7 +91,14 @@ export default {
     padding-left: 15px;
     margin-top: 3px;
 }
-.slideInLeft,.slideOutLeft,.fadeIn,.fadeOut{
-    animation-duration: 300ms;
+.slideInRight,.slideOutRight{
+    animation-duration: 1000ms;
+}
+
+.cityNav{
+    position: fixed;
+    top: 60px;
+    right: 30px;
+    z-index: 10;
 }
 </style>

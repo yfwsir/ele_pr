@@ -1,7 +1,7 @@
 <template>
     <div id="homefilter">
         <ul class="filter">
-            <li @click="activeSort()">综合排序</li>
+            <li @click="activeSort()">{{showspanname}}</li>
             <li>距离最近</li>
             <li >品质联盟</li>
             <li @click="activeIance()">筛选<span class="iconfont icon-filter"></span></li>
@@ -10,7 +10,9 @@
             <div class="sort" v-if="show" v-for="(item , index ) in filterList" :key="index">
                 <p ref="in" @click="showSpan(item.name)"
                 :class="{actived:showspanname==item.name}"
-                >{{item.name}}<span v-if="showspanname==item.name">√</span></p>
+                >
+                {{item.name}}
+                <span v-if="showspanname==item.name">√</span></p>
             </div>
             <div class="shade" v-if="show" @click="hidden()"></div>
         </div>
@@ -72,7 +74,7 @@ export default {
             isShow:false,
             showFilter:false,
             actived:'',
-            showspanname:'',
+            showspanname:'综合排序',
             servicesname:'',
             filterList:[
                 {name:'综合排序'},
@@ -157,7 +159,7 @@ export default {
 <style>
     #homefilter{
         width:100%;
-        background:white;
+        background: white;
     }
     .filter {
         display: flex;
@@ -165,6 +167,7 @@ export default {
         color:#b2b2b2;
         font-size:14px;
         border-bottom:1px solid #fbfbfb;
+        line-height: 35px;
     }
     .filter  li {
         flex:1;
@@ -180,6 +183,7 @@ export default {
         line-height:40px;
         text-indent: 2rem;
         position: relative;
+        background: white;
     }
     .sort .actived{
       color:#2596ff;
@@ -190,6 +194,9 @@ export default {
         top:0;
         font-size:12px;
         font-weight: bold;
+        color:#2596ff;
+        background: white;
+        z-index: 10;
     }
     .shade{
         height:260px;
@@ -198,6 +205,8 @@ export default {
         opacity:0.1;
         position: absolute;
         top:765px;
+        background: white;
+        z-index: 10;
     }
     .merchantservices, .vourable, .consumption{
         width:100%;
