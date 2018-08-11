@@ -15,7 +15,11 @@
                 </div>
             </div>
             <div class="swiper-slide " >
-                <div class= "twopage" v-for="(item,index) in twoData" :key="index">
+                <div
+                 class= "twopage" 
+                 v-for="(item,index) in twoData" :key="index"
+                 @click="getshopid(item.id)"
+                 >
                     <div class="listbox">
                         <img alt="" :src="item.image_hash|formateImg">
                         <p>{{item.imgname}}</p>
