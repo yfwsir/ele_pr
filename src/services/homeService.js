@@ -1,5 +1,48 @@
 import API from '../API/API'
 import axios from 'axios'
+export function getAutoplayData(){
+    return new Promise((resolve,reject)=>{
+        axios.get(
+            '/restapi/shopping/openapi/entries?latitude=22.54286&longitude=114.059563&templates[]=main_template&templates[]=favourable_template&templates[]=svip_template&terminal=h5'
+        ).then(response=>{
+            //  console.log(response)
+            let data =response.data[0].entries.map(item=>{
+                    return{
+                         imgname:item.name,
+                         image_hash:item.image_hash,
+                         id:item.id
+                  }
+           })
+            resolve(data)
+        }).catch(error=>{
+            console.log('失败')
+            console.log(error)
+        })
+    })
+}
+export function getScareBuyingData(){
+    return new Promise((resolve,reject)=>{
+        let reg = /\w*/g
+        axios.get(
+            '/restapi/shopping/openapi/entries?latitude=22.54286&longitude=114.059563&templates[]=main_template&templates[]=favourable_template&templates[]=svip_template&terminal=h5'
+        ).then(response=>{
+            //  console.log(response.data[1].entries)
+            let data =response.data[1].entries.map(item=>{
+                    return{
+                         imgname:item.name,
+                         image_hash:item.image_hash,
+                         id:item.id,
+                         description:item.description,
+                         population:item.more.split(',')[3].match(reg)[4]
+                    }
+           })
+            resolve(data)
+        }).catch(error=>{
+            console.log('失败')
+            console.log(error)
+        })
+    })
+}
 
 //请求首页餐馆的信息
 export function restaurantData(page){
@@ -86,7 +129,7 @@ export function shopNavData(id){
     return new Promise(resolve=>{
         axios.get(API.SHOPNAV_API,{
             params:{
-                entry_id : 20004689
+                entry_id : id
             }
         })
         .then(res=>{
@@ -161,6 +204,27 @@ export function getCitiesData(){
         })
         .catch(error=>{
             console.log('请求错误')
+            console.log(error)
+        })
+    })
+}
+
+//请求商家详情
+export function shopData(id){
+    return new Promise(resolve=>{
+        axios.get(API.SHOP_DETAIL_API,
+            {
+                params:
+                    {
+                        restaurant_id:id
+                    }
+            }
+        )
+        .then(res=>{
+            // console.log(res.data)
+            resolve(res.data)
+        })
+        .catch(error=>{
             console.log(error)
         })
     })

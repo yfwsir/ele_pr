@@ -1,14 +1,19 @@
 <template>
 
     <div class="shop_detail">
+        <Header/>
+        <!-- <page id="scroll_nav"> -->
+        <div class="nav_box">
             <ul class="detail_nav">
                 <li v-for="(nav,index) in shopNavData" :key="index" class="detail_nav_item"
-                        :class="{actived : isClass}"
-                        @click="changeTab(nav.restaurant_category_ids)">
-                    {{nav.name}}
+                          v-if="nav.restaurant_category_ids"
+                        @click="changeTab(nav.restaurant_category_ids,index)">
+                    <span class="detail_nav_item_span" :class="{actived : index == isClass}">{{nav.name}}</span>
                 </li>
             </ul>
-       
+        </div>
+        <!-- </page> -->
+        <home-filter></home-filter>
         <page :onScroll="pageScrollY" ref="page1" id="shop_detail_page">
             <div class="sale_list" v-if="isShow==true && shopDetailSaleData.query_list">
                 <span @click="gosaleList" class="seeMoreSale">更多</span>
@@ -41,10 +46,14 @@
 
 <script>
 import HomeRestaurant from '../HomeRestaurant.vue'
+import HomeFilter from '../homeFilter.vue'
+import Header from '../../common/Header.vue'
 import {shopNavData,shopDetailSaleData,shopDetailData} from '../../../services/homeService'
 export default {
     components:{
-        HomeRestaurant
+        HomeRestaurant,
+        HomeFilter,
+        Header
     },
     data () {
         return {
@@ -52,22 +61,28 @@ export default {
             shopDetailData:[],
             shopDetailSaleData:{},
             isShow:true,
-            isClass:false,
             id:-1,
             isCanGetData:true,
-            page:0
+            page:0,
+            isClass:0
         }
     },
     methods:{
         gosaleList(){
             this.$router.push({path:'/shopdetail/sale'})
         },
-        changeTab(id){
+        changeTab(id,index){
             shopDetailData(id,this.page).then(res=>{
                 this.id = id
                 this.shopDetailData = res ;
                 this.isShow = false;
+                this.$nextTick(()=>{
+                    this.$refs.page1.refreshScroll();
+                    this.isCanGetData = true;
+                })
             })
+
+            this.isClass = index;
         },
         pageScrollY(y){
             // console.log('请求到了')
@@ -86,24 +101,34 @@ export default {
         }
     },
     mounted(){
-        shopNavData().then(res=>{
+        this.$store.commit('changeHeaderTitle',this.$route.query.name)
+        shopNavData(this.$route.query.id).then(res=>{
             this.shopNavData = res ;
-            // console.log(this.shopNavData)
-            this.id =  this.shopNavData[0].restaurant_category_ids
+            // if(this.shopNavData[0].restaurant_category_ids){
+                this.id =  this.shopNavData[0].restaurant_category_ids
+            // }
+
+            shopDetailData().then(res=>{
+                this.shopDetailData = res ;
+            })
         })
         shopDetailSaleData().then(res=>{
             this.shopDetailSaleData = res ;
         })
-        shopDetailData().then(res=>{
-            this.shopDetailData = res ;
-        })
+        
     }
 }
 </script>
 
 <style scoped>
+/* #scroll_nav{
+    top: 50px;
+    width: 375px;
+    height: 40px;
+} */
+
 #shop_detail_page{
-    top: 72px;
+    top: 130px;
     bottom: 0;
 }
 .shop_detail{
@@ -114,19 +139,27 @@ export default {
     bottom: 0;
     background: white;
     z-index: 5;
+    overflow: hidden;
+}
+.nav_box{
+    width: 100%;
+    height: 40px;
+    background: #0af;
+    overflow: auto;
 }
 .detail_nav{
-    width: 3000px;
-    overflow-x: auto;
-    background: #0af;
+    width: 200%;
+    /* display: flex; */
 }
 .detail_nav_item{
     float: left;
     padding: 0 28px;
+}
+.detail_nav_item_span{
     color: white;
+    opacity: 0.7;
     line-height: 40px;
 }
-
 .sale_list{
     padding: 0 15px;
 }
@@ -140,7 +173,9 @@ export default {
     margin-bottom: 15px;
 }
 .actived{
-    background: black;
+    opacity: 1;
+    border-bottom: 2px solid #fff;
+    font-weight: 700;
 }
 .salelist_li{
     flex: 33%;

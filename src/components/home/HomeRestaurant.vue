@@ -1,5 +1,5 @@
 <template>
-    <div id="homeRestaurants">
+    <div id="homeRestaurants" @click="goShop(item)">
         <div class="homeRestaurant">
             <div class="homeRestaurant_img">
                 <img :src="item.restaurant.image_path | formateImg">
@@ -68,7 +68,6 @@
 </template>
 
 <script>
-
 export default {
     props:{
         item:Object
@@ -93,6 +92,12 @@ export default {
                 this.item.isMore = false
                 this.seeMore = '查看其他相关商品'
             }
+        },
+        goShop(item){
+            // this.$router.push({path:'/shop',query:{data:item}})
+            this.$router.push({path:'/shop'})
+            // console.log(this.$route)
+            this.$store.commit('changeShopData',item)
         }
     },
 }

@@ -18,6 +18,10 @@ module.exports = {
       '/v4':{
         target:'https://m.maizuo.com',
         changeOrigin:true
+      },
+      '/shopping':{
+        target:'https://restapi.ele.me',
+        changeOrigin:true
       }
     },
 

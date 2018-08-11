@@ -24,7 +24,8 @@ export default {
     },
     mounted () {
         let scroll = new IScroll(this.$refs.page,{
-            probeType: this.onScroll ? 3 : 0
+            probeType: this.onScroll ? 3 : 0,
+            scrollX:true
         })
         this.scroll = scroll ;
         scroll.on('beforeScrollStart',()=>{
@@ -35,6 +36,12 @@ export default {
             // console.log(bottomY)
             // 把距底部的距离传出去
             this.onScroll(bottomY);
+        })
+
+        // 监听定位页面传来的距顶部的距离
+        this.$center.$on('toScroll',scroll=>{
+            // console.log(scroll)
+            this.scroll.scrollTo(0,-scroll)
         })
     }
 }
