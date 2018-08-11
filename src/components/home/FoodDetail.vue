@@ -43,6 +43,7 @@ export default {
             }else{
                 this.right_one_count--
             }
+            // 把数据添加到全局的订单数据中
             this.$store.commit('changeOrderData',{
                 name:this.data.name,
                 num:this.right_one_count,
@@ -60,7 +61,12 @@ export default {
         }
     },
     mounted(){
-        // console.log(this.$route)
+        // 判断该商品在订单的数据中是否已经存在，如果存在取数据中的数量
+        this.$store.state.orderData.map(item=>{
+            if(this.data.name == item.name){
+                this.right_one_count = item.num
+            }
+        })
     }
 }
 </script>
@@ -144,8 +150,11 @@ export default {
 .food_right_num{
     border: 0;
     outline: none;
-    width: 12px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin: 0 5px;
+    position: relative;
+    top: -3px;
+    text-align: center;
 }
 </style>

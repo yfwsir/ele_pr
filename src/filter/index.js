@@ -1,5 +1,6 @@
 export default {
     install(Vue){
+        // 拼接图片地址链接的过滤器
         Vue.filter('formateImg',(value)=>{
             if(!value){
                 return 
@@ -11,16 +12,9 @@ export default {
             }
         })
 
+        //保留两位小数的过滤器
         Vue.filter('formateSale',(value)=>{
             return value.toFixed(2)
         })
-
-        // Vue.filter('formateBack',(value)=>{
-        //     if(value.indexOf('jpeg')>-1){
-        //         return 'http://fuss10.elemecdn.com/'+value + '.jpeg?imageMogr/format/webp/thumbnail/750x/thumbnail/!40p/blur/50x40/'
-        //     }else {
-        //         return 'http://fuss10.elemecdn.com/'+value + '.png??imageMogr/format/webp/thumbnail/750x/thumbnail/!40p/blur/50x40/'
-        //     }
-        // })
     }
 }

@@ -32,13 +32,11 @@
         <!-- 商家推荐 -->
         <div class="recommend">
             <p class="shop_recommend">商家推荐</p>
-            <keep-alive>
             <div class="recommend_list">
                 <Foods v-for="(item,index) in foodItem" :key="index" 
                     :data="item" class="recommend_item" v-if="index<7">
                 </Foods>
             </div>
-            </keep-alive>
         </div>
 
         <!-- 全部产品分类 -->
@@ -60,18 +58,23 @@
                         <span class="food_detail_title">{{item.name}}</span>
                         <span class="food_detail_des">{{item.description}}</span>
                     </li>
-                    <keep-alive>
+                    <!-- <keep-alive> -->
                     <li v-for="(value,index) in item.foods" :key="index">
                         <food-detail :data="value"></food-detail>
                     </li>
-                    </keep-alive>
+                    <!-- </keep-alive> -->
                 </ul>
             </div>
         </div>
 
         <!-- 加入购物车 -->
         <div class="goBuyCar" @click="goBuyCar">
-            <p>跳去订单页面</p>
+            <span class="goBuyCar_count">
+                <i class="iconfont icon-buycar"></i>
+                <span class="goBuyCar_payCount">{{payCount}}</span> 
+            </span>
+            <span class="goBuyCar_price">共￥{{payPrice | formateSale}}元</span>
+            <span class="goPay">去结算</span>
         </div>
     </div>
 
@@ -88,13 +91,31 @@ export default {
     },
     data () {
         return {
-            data:{},
+            data:{},//商家的基本信息，通过vuex来传
             foodData:[],
-            foodItem:[],
-            FoodDetail,
-            url:''      
+            foodItem:[],//商家推荐的商品数据
+            // FoodDetail,
+            url:'' //顶部背景图片的地址     
         }
     },
+    computed:{
+    // 计算总价格
+        payPrice(){
+            var totalPrice = 0;
+            this.$store.state.orderData.map(item=>{
+               totalPrice += item.num * item.price
+            })
+            return totalPrice
+        },
+        // 计算总件数
+        payCount(){
+            var totalCount = 0;
+            this.$store.state.orderData.map(item=>{
+                totalCount += item.num
+            })
+            return totalCount
+        }
+   },
     methods:{
         shop_back(){
             this.$router.back() ;
@@ -106,7 +127,7 @@ export default {
     created(){
         // this.data = this.$route.query.data.restaurant
         this.data = this.$store.state.shopData.restaurant
-        // console.log(this.$store.state.shopData)
+        // 顶部背景图片的地址拼接
         if(this.data.image_path.indexOf('jpeg')>-1){
             this.url ='http://fuss10.elemecdn.com/' + this.data.image_path + '.jpeg?imageMogr/format/webp/thumbnail/750x/thumbnail/!40p/blur/50x40/'
         }else{
@@ -126,25 +147,57 @@ export default {
 <style scoped>
 .goBuyCar{
     position: fixed;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px 20px;
-    background: green;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    height: 50px; 
+    background: rgba(61,61,63); 
     color: white;
-    border-radius: 20px;
+    display: flex;
+}
+.goPay{
+    background: #38ca73;
+    color: white;
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    line-height: 50px;
+}
+.goBuyCar_count{
+    flex: 1;
+}
+.goBuyCar_price{
+    flex: 2;
+    line-height: 50px;
+}
+.icon-buycar{
+    padding: 10px;
+    font-size: 24px;
+    background: rgb(35, 149, 255);
+    border-radius: 50%;
+    position: absolute;
+    left: 15px;
+    top: 0px;
+}
+.goBuyCar_payCount{
+    color: white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    left: 40px;
+    top: -10px;
+    font-size: 12px;
 }
 
-/* #shop{
-    bottom: 0;
-} */
 .shop{
     position: absolute;
     width: 100%;
-    /* height: 100%; */
     top: 0;
     left: 0;
-    /* bottom: 0; */
     background: white;
     z-index: 15;
 }

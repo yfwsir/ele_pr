@@ -5,12 +5,12 @@
         </div>
         <p class="food_name">{{data.name}}</p>
         <p class="food_count">月售{{data.month_sales}} 好评率{{data.satisfy_rate}}%</p>
-        <p><span class="food_price">￥{{data.specfoods[0].price}}</span></p>
         <p class="food_btn">
             <span class="food_dec" @click="decClick" v-if="one_count>0"> - </span>
             <input type="number" class="num_count" v-model.number="one_count" v-if="one_count>0">
             <span class="food_add" @click="addClick"> + </span>
         </p>
+        <p><span class="food_price">￥{{data.specfoods[0].price}}</span></p>
     </div>
 </template>
 
@@ -25,15 +25,17 @@ export default {
     },
     methods:{
         addClick(){
+            // 数量加按钮的事件
             this.one_count++
             this.$store.commit('changeOrderData',{
                 name:this.data.name,
                 num:this.one_count,
                 price:this.data.specfoods[0].price,
             })
-            console.log(this.$store.state.orderData)
+            // console.log(this.$store.state.orderData)
         },
         decClick(){
+            // 数量减按钮的事件
             if(this.one_count<=0){
                 this.one_count = 0;
             }else{
@@ -44,8 +46,16 @@ export default {
                 num:this.one_count,
                 price:this.data.specfoods[0].price,
             })
-            console.log(this.$store.state.orderData)
+            // console.log(this.$store.state.orderData)
         }
+    },
+    mounted(){
+        // 判断该商品在订单的数据中是否已经存在，如果存在取数据中的数量
+        this.$store.state.orderData.map(item=>{
+            if(this.data.name == item.name){
+                this.one_count = item.num
+            }
+        })
     }
 }
 </script>
@@ -108,8 +118,11 @@ export default {
 .num_count{
     border: 0;
     outline: none;
-    width: 12px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin: 0 5px;
+    position: relative;
+    top: -1px;
+    text-align: center;
 }
 </style>
