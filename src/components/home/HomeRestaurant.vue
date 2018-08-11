@@ -30,7 +30,7 @@
                         {{item.text}}
                     </span>
                 </p>
-                 <span class="activities_length" @click="showActive()">{{item.restaurant.activities.length}}个活动</span>
+                 <span class="activities_length" @click.stop="showActive()">{{item.restaurant.activities.length}}个活动</span>
                 <p v-for="(tab,index) in item.restaurant.activities" :key="index+'k'"
                          v-if="index<2 || item.restaurant.isShow==true" class="item_restaurant_act">
                     <span :style="{backgroundColor:'#' + tab.icon_color,color:'#fff'}">{{tab.icon_name}}</span>
@@ -56,7 +56,9 @@
                         <p class="item_foods_price">￥{{ele.price}}</p>
 
                     </div>
-                    <p v-if="item.foods.length > 3" class="seeMore" @click="showMore">
+
+                    <!-- 搜索进去的商家列表 -->
+                    <p v-if="item.foods.length > 3" class="seeMore" @click.stop="showMore">
                         <span v-text="seeMore"></span>
                         <span v-if="item.isMore==false">{{item.foods.length - 3}}个</span> 
                         
