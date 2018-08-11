@@ -23,30 +23,13 @@ export default {
             obj:{}
         }
     },
-    computed:{
-        total_price(){
-           var total_price = 0 ;
-           total_price = this.one_count * this.data.specfoods[0].price ;
-           return total_price
-        }
-    },
     methods:{
-        // sendData(){
-        //     this.obj.name = this.data.name
-        //     this.obj.num = this.one_count
-        //     this.obj.price = this.data.specfoods[0].price
-        //     this.obj.total_price = this.total_price
-        // },
         addClick(){
             this.one_count++
-           
-            // console.log(this.obj)
-            // this.$center.$emit('orderData',this.obj)
             this.$store.commit('changeOrderData',{
                 name:this.data.name,
                 num:this.one_count,
                 price:this.data.specfoods[0].price,
-                total_price:this.total_price
             })
             console.log(this.$store.state.orderData)
         },
@@ -56,9 +39,12 @@ export default {
             }else{
                 this.one_count--
             }
-          
-            // this.$center.$emit('orderData',this.obj)
-            // console.log(this.obj)
+            this.$store.commit('changeOrderData',{
+                name:this.data.name,
+                num:this.one_count,
+                price:this.data.specfoods[0].price,
+            })
+            console.log(this.$store.state.orderData)
         }
     }
 }

@@ -19,7 +19,11 @@
                 <span class="food_right_price">￥{{data.specfoods[0].price}}</span>
                 <span v-if="data.activity" class="food_right_originprice"><del>￥{{data.specfoods[0].original_price}}</del></span>
             </p>
-            <span class="food_right_add"> + </span>
+            <p class="food_right_btn">
+                <span class="food_right_dec" @click="rightDecClick" v-if="right_one_count>0"> - </span>
+                <input type="number" class="food_right_num" v-model.number="right_one_count" v-if="right_one_count>0">
+                <span class="food_right_add" @click="rightAddClick"> + </span>
+            </p>
         </div>
     </div>
 </template>
@@ -27,6 +31,34 @@
 <script>
 export default {
     props:["data"],
+    data () {
+        return {
+            right_one_count:0        
+        }
+    },
+    methods:{
+        rightDecClick(){
+            if(this.right_one_count<=0){
+                this.right_one_count = 0;
+            }else{
+                this.right_one_count--
+            }
+            this.$store.commit('changeOrderData',{
+                name:this.data.name,
+                num:this.right_one_count,
+                price:this.data.specfoods[0].price,
+            })
+        },
+        rightAddClick(){
+            this.right_one_count++
+            this.$store.commit('changeOrderData',{
+                name:this.data.name,
+                num:this.right_one_count,
+                price:this.data.specfoods[0].price,
+            })
+            console.log(this.$store.state.orderData)
+        }
+    },
     mounted(){
         // console.log(this.$route)
     }
@@ -54,7 +86,7 @@ export default {
 .food_detail_img img{
     width: 100%;
 }
-.food_right_des,.food_right_count{
+.food_right_des,.food_right_count,.food_right_name{
     max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
@@ -88,9 +120,32 @@ export default {
     background: rgb(35, 149, 255);
     color: white;
     text-align: center;
+    line-height: 20px; 
+    float: right
+}
+.food_right_dec{
+    display: block;
+    box-sizing: border-box;
+    float: left;
+    width: 20px;
+    height: 20px;
+    border: solid 1px rgb(35, 149, 255);
+    color: rgb(35, 149, 255);
+    border-radius: 50%;
+    text-align: center;
     line-height: 20px;
+}
+.food_right_btn{
+    /* float: right; */
     position: absolute;
     right: 0;
     bottom: 0;
+}
+.food_right_num{
+    border: 0;
+    outline: none;
+    width: 12px;
+    height: 20px;
+    margin: 0 5px;
 }
 </style>

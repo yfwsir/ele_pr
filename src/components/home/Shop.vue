@@ -1,6 +1,6 @@
 <template>
     <div class="shop">
-    <!-- <page id="shop"> -->
+        <!-- 头部商家的图片 -->
         <div class="header" :style="{backgroundImage: 'url(' + url + ')' }">
             <div class="header_img">
                 <img :src="data.image_path | formateImg" alt="">
@@ -10,6 +10,7 @@
             </div>
         </div>
 
+        <!-- 商家的基本信息 -->
         <div class="shop_basic">
             <p class="shop_name">{{data.name}}</p>
             <p class="shop_raring">评价{{data.rating}} 月售{{data.recent_order_num}} 
@@ -28,7 +29,7 @@
             </p>
         </div>
        
-
+        <!-- 商家推荐 -->
         <div class="recommend">
             <p class="shop_recommend">商家推荐</p>
             <keep-alive>
@@ -40,6 +41,7 @@
             </keep-alive>
         </div>
 
+        <!-- 全部产品分类 -->
         <div class="food_all">
             <ul class="food_ul">
                 <li v-for="(item,index) in foodData" :key="index">
@@ -58,13 +60,15 @@
                         <span class="food_detail_title">{{item.name}}</span>
                         <span class="food_detail_des">{{item.description}}</span>
                     </li>
+                    <keep-alive>
                     <li v-for="(value,index) in item.foods" :key="index">
                         <food-detail :data="value"></food-detail>
                     </li>
+                    </keep-alive>
                 </ul>
             </div>
         </div>
-    <!-- </page> -->
+
         <!-- 加入购物车 -->
         <div class="goBuyCar" @click="goBuyCar">
             <p>跳去订单页面</p>

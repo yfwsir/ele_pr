@@ -25,7 +25,6 @@ const store = new Vuex.Store({
                 if(params.name == item.name){
                     state.isAdd=false
                     item.num = params.num
-                    item.total_price = params.total_price
                 }
             })
             if(state.isAdd == true){
