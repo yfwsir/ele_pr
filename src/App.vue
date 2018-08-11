@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <keep-alive> -->
-    <router-view/>
+      <router-view/>
     <!-- </keep-alive> -->
     <div class="footer">
       <router-link to="/home" class="footer_item"><i class="iconfont icon-home"></i><p>首页</p></router-link>

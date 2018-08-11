@@ -18,6 +18,17 @@
         <home-filter v-if="isShowRestaurant == true"></home-filter>
 
         <page id="search_page" :onScroll="pageScrollY" ref="page1">
+            
+            <!-- 渲染历史搜索的数据 -->
+            <div class="search_main" v-if="isShowRestaurant == false && $store.state.historySearch.length > 0">
+                <p>历史搜索</p>
+                <span v-for="(item,index) in $store.state.historySearch" :key="index"
+                        class="historySearch" @click="goFoodDetail(item)">
+                    {{item}}
+                </span>
+            </div>
+
+            <!-- 渲染热点搜索的数据 -->
             <div class="search_main" v-if="isShowRestaurant == false">
                 <p>热点搜索</p>
                 <span v-for="(item,index) in hotSearchData" :key="index"
@@ -26,6 +37,7 @@
                 </span>
             </div>
 
+            <!-- 根据关键词请求回来对应数据的渲染 -->
             <home-restaurant v-for="(item,index) in foodDetailData" :key="index" 
                 :item="item" v-if="isShowRestaurant == true">
             </home-restaurant>
@@ -56,14 +68,23 @@ export default {
     },
     methods:{
         goFoodDetail(keyword){
+            // 如果没有输入，不响应
+            if(!keyword){
+                return ;
+            }
             this.keyword = keyword
             this.inp = keyword
             this.isShowRestaurant = true ;
             footDetailData(keyword,this.page).then(res=>{
                 this.foodDetailData = res;
             })
+
+            // 把搜索的keyword值添加到历史搜索的数据中
+            this.$store.commit('changeHistorySearch',keyword)
+            
         },
         pageScrollY(y){
+            // 实现上滑加载更多
             if(y<80 && this.isCanGetData){
                 // console.log(1)
                 this.isCanGetData = false;
@@ -82,6 +103,7 @@ export default {
         }
     },
     mounted(){
+        // 获取热点搜索的数据
         hotSearchData().then(res=>{
             this.hotSearchData = res;
         })
@@ -147,7 +169,7 @@ export default {
     font-weight: 700;
     margin-top: 30px;
 }
-.hotsearch{
+.hotsearch,.historySearch{
     display: inline-block;
     padding: 10px;
     font-size: 14px;
