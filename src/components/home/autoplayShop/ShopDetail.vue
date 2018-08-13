@@ -2,20 +2,21 @@
 
     <div class="shop_detail">
         <Header/>
-        <!-- <page id="scroll_nav"> -->
-        <div class="nav_box">
+        <!-- 分类进来的顶部的导航 -->
+        <div class="nav_box" v-if="shopNavData.length>0">
             <ul class="detail_nav">
                 <li v-for="(nav,index) in shopNavData" :key="index" class="detail_nav_item"
-                          v-if="nav.restaurant_category_ids"
                         @click="changeTab(nav.restaurant_category_ids,index)">
                     <span class="detail_nav_item_span" :class="{actived : index == isClass}">{{nav.name}}</span>
                 </li>
             </ul>
         </div>
-        <!-- </page> -->
+
         <home-filter></home-filter>
         <page :onScroll="pageScrollY" ref="page1" id="shop_detail_page">
-            <div class="sale_list" v-if="isShow==true && shopDetailSaleData.query_list">
+
+            <!-- 省心套餐的数据渲染，仅美食这页显示 -->
+            <div class="sale_list" v-if="isShow==true && $route.query.id==20004689">
                 <span @click="gosaleList" class="seeMoreSale">更多</span>
                 <p class="sale_list_title">{{shopDetailSaleData.page_title}}</p>
                 <ul class="salelist_ul">
@@ -104,16 +105,16 @@ export default {
         this.$store.commit('changeHeaderTitle',this.$route.query.name)
         shopNavData(this.$route.query.id).then(res=>{
             this.shopNavData = res ;
-            // if(this.shopNavData[0].restaurant_category_ids){
+            if(this.shopNavData.length>0){
                 this.id =  this.shopNavData[0].restaurant_category_ids
-            // }
-
-            shopDetailData().then(res=>{
+            }
+            shopDetailData(this.id).then(res=>{
                 this.shopDetailData = res ;
             })
         })
         shopDetailSaleData().then(res=>{
             this.shopDetailSaleData = res ;
+            console.log(res)
         })
         
     }

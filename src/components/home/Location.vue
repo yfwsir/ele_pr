@@ -99,4 +99,7 @@ export default {
     right: 30px;
     z-index: 10;
 }
+.cityNav_item{
+    margin-bottom: 5px;
+}
 </style>

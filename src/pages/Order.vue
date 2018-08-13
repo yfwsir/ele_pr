@@ -23,12 +23,16 @@
         </ul>
 
         <!-- 应付的总额 -->
-        <div class="orderPay">
-        <p class="order_pay">
-            应付：
-            <span class="payPrice">{{payPrice | formateSale}}</span>  
-            元
-        </p>
+        <div class="orderPay" v-if="$store.state.orderData.length>0">
+            <p class="order_pay">
+                应付：
+                <span class="payPrice">{{payPrice | formateSale}}</span>  
+                元
+            </p>
+        </div>
+
+        <div class="addTip" v-if="$store.state.orderData.length<=0">
+            <p>商品列表为空，请先添加</p>
         </div>
     </page>
     </div>
@@ -133,5 +137,9 @@ export default {
 .order_num span{
     flex: 1;
 }
-
+.addTip{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
 </style>
