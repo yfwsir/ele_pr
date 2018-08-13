@@ -49,6 +49,12 @@ export default {
                 num:this.right_one_count,
                 price:this.data.specfoods[0].price,
             })
+
+        //     this.$store.state.orderData.map(item=>{
+        //     if(this.data.name == item.name){
+        //         this.right_one_count = item.num
+        //     }
+        // })
         },
         rightAddClick(){
             this.right_one_count++
@@ -57,9 +63,25 @@ export default {
                 num:this.right_one_count,
                 price:this.data.specfoods[0].price,
             })
-            console.log(this.$store.state.orderData)
+
+        //     this.$store.state.orderData.map(item=>{
+        //     if(this.data.name == item.name){
+        //         this.right_one_count = item.num
+        //     }
+        // })
+            // console.log(this.$store.state.orderData)
         }
     },
+    // watch: {
+    //     // 监听输入框的值的变化，变化了传值给vuex
+    //     right_one_count:function(newVal){
+    //         this.$store.commit('changeOrderData',{
+    //             name:this.data.name,
+    //             num:newVal,
+    //             price:this.data.specfoods[0].price,
+    //         })
+    //     }
+    // },
     mounted(){
         // 判断该商品在订单的数据中是否已经存在，如果存在取数据中的数量
         this.$store.state.orderData.map(item=>{
