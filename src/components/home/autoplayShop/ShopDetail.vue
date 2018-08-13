@@ -62,7 +62,7 @@ export default {
             shopDetailData:[],
             shopDetailSaleData:{},
             isShow:true,
-            id:-1,
+            id:-2,
             isCanGetData:true,
             page:0,
             isClass:0
@@ -110,11 +110,11 @@ export default {
             }
             shopDetailData(this.id).then(res=>{
                 this.shopDetailData = res ;
+                // console.log(res)
             })
         })
         shopDetailSaleData().then(res=>{
             this.shopDetailSaleData = res ;
-            console.log(res)
         })
         
     }
@@ -122,11 +122,6 @@ export default {
 </script>
 
 <style scoped>
-/* #scroll_nav{
-    top: 50px;
-    width: 375px;
-    height: 40px;
-} */
 
 #shop_detail_page{
     top: 130px;
