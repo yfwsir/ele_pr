@@ -32,13 +32,8 @@ export default {
                 num:this.one_count,
                 price:this.data.specfoods[0].price,
             })
-
-        //     this.$store.state.orderData.map(item=>{
-        //     if(this.data.name == item.name){
-        //         this.one_count = item.num
-        //     }
-        // })
-            // console.log(this.$store.state.orderData)
+            // 为了让商家推荐和热销的相同商品的数量保持一致进行传值
+            this.$center.$emit('sendToFoodDetailNum',{num:this.one_count,name:this.data.name})
         },
         decClick(){
             // 数量减按钮的事件
@@ -52,13 +47,7 @@ export default {
                 num:this.one_count,
                 price:this.data.specfoods[0].price,
             })
-
-        //     this.$store.state.orderData.map(item=>{
-        //     if(this.data.name == item.name){
-        //         this.one_count = item.num
-        //     }
-        // })
-            // console.log(this.$store.state.orderData)
+            this.$center.$emit('sendToFoodDetailNum',{num:this.one_count,name:this.data.name})
         }
     },
     // watch: {
@@ -76,6 +65,12 @@ export default {
         this.$store.state.orderData.map(item=>{
             if(this.data.name == item.name){
                 this.one_count = item.num
+            }
+        })
+        this.$center.$on('sendFoodNum',data=>{
+            // console.log(data)
+            if(this.data.name == data.name){
+                this.one_count = data.num ;
             }
         })
     }

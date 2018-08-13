@@ -50,11 +50,7 @@ export default {
                 price:this.data.specfoods[0].price,
             })
 
-        //     this.$store.state.orderData.map(item=>{
-        //     if(this.data.name == item.name){
-        //         this.right_one_count = item.num
-        //     }
-        // })
+            this.$center.$emit('sendFoodNum',{num:this.right_one_count,name:this.data.name})
         },
         rightAddClick(){
             this.right_one_count++
@@ -64,12 +60,7 @@ export default {
                 price:this.data.specfoods[0].price,
             })
 
-        //     this.$store.state.orderData.map(item=>{
-        //     if(this.data.name == item.name){
-        //         this.right_one_count = item.num
-        //     }
-        // })
-            // console.log(this.$store.state.orderData)
+            this.$center.$emit('sendFoodNum',{num:this.right_one_count,name:this.data.name})
         }
     },
     // watch: {
@@ -87,6 +78,12 @@ export default {
         this.$store.state.orderData.map(item=>{
             if(this.data.name == item.name){
                 this.right_one_count = item.num
+            }
+        })
+        this.$center.$on('sendToFoodDetailNum',(data)=>{
+            // console.log(data)
+            if(this.data.name == data.name){
+                this.right_one_count = data.num ;
             }
         })
     }

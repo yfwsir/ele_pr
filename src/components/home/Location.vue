@@ -48,7 +48,6 @@ export default {
             this.back_home()
         },
         changeHeight(key){
-            // console.log(this.$refs[key][0].offsetHeight)
             this.$center.$emit('toScroll',this.$refs[key][0].offsetTop)
         }
     },
