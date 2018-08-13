@@ -32,10 +32,13 @@ const store = new Vuex.Store({
         changeOrderData(state,params){
             state.isAdd = true
             // 判断是否已经存在，存在了的话更改传过来的数量，不添加新的数据
-            state.orderData.map(item=>{
+            state.orderData.map((item,index)=>{
                 if(params.name == item.name){
                     state.isAdd=false
                     item.num = params.num
+                }
+                if(item.num == 0){
+                    state.orderData.splice(index,1)
                 }
             })
             if(state.isAdd == true){
