@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/index.js'
-import filters from './filter'
+import filters from './filter' 
 Vue.use(filters)
 Vue.config.productionTip = false
 
