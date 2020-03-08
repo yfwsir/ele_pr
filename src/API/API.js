@@ -11,7 +11,7 @@ const RESTAURANTS_API = '/restapi/shopping/v3/restaurants?latitude=18.25248&long
 
 /*
 接口功能：搜索页面的热点搜索
-接口参数：
+接口参数：ddff
 */
 const HOTSEARCH_API = '/restapi/shopping/v3/hot_search_words?latitude=18.25248&longitude=109.512093';
 
